@@ -15,7 +15,12 @@ pip install -r requirements.txt
 pytest
 ```
 
-Se `pytest` non è verde, scrivetelo in chat subito. Piano B: la coppia lavora sul PC di chi ha l'ambiente funzionante.
+Se `pytest` non è verde, scrivetelo in chat subito.
+
+**Se vi bloccate qui**
+
+- `git clone` non raggiunge GitHub (rete aziendale): scaricate lo zip https://github.com/nicolaguglielmi/corso-ai-ticketing-lab/archive/refs/heads/main.zip, estraetelo ed eseguite `git init` nella cartella.
+- Manca Python, `pip install` fallisce o Claude Code non parte: la coppia lavora sul PC di chi ha l'ambiente funzionante. L'altra persona fa da revisore e scrive `NOTE.md`.
 
 Regola d'aula: **nessun diff si accetta senza averlo letto.**
 
@@ -32,7 +37,7 @@ Regola d'aula: **nessun diff si accetta senza averlo letto.**
 2. **Verificare (10 min).** Aprite almeno due file citati nella risposta. Nel `NOTE.md` scrivete una cosa corretta e una imprecisa o mancante. Confrontate anche il codice con `docs/processo-supporto.md`: tornano?
 3. **Un test che serve davvero (15 min).** Chiedete a Claude Code di trovare un endpoint senza test e di scriverne uno. Fate girare `pytest`. Poi rompete a mano il codice di quell'endpoint (per esempio cambiate il codice di risposta) e controllate che il test fallisca. Annullate la modifica.
 
-   **Checkpoint a metà lab: scambio dei ruoli.**
+   **Checkpoint alle 15:35, dopo il passo 3: scambio dei ruoli.**
 4. **Refactoring con review (15 min).** Nel file `app/main.py` la validazione di titolo e descrizione compare due volte. Chiedete di estrarla in un punto solo. **Leggete il diff prima di accettarlo** e fate girare i test.
 5. **Diario (5 min).** Completate la sezione del lab 1.1 in `NOTE.md`: prompt usati, cosa ha funzionato, dove avete dovuto correggere.
 
@@ -46,9 +51,20 @@ Branch `<nome>/s1` con il nuovo test, il refactoring e `NOTE.md`.
 - il nuovo test fallisce quando rompete il codice a mano;
 - in `NOTE.md` c'è il motivo per cui avete accettato il diff del refactoring.
 
+### Se vi bloccate
+
+- Claude Code non risponde o va in errore: chiudete e riaprite `claude` nella cartella del progetto, poi riprendete dal passo in cui eravate.
+- Il refactoring rompe i test e non riuscite a sistemarlo in 5 minuti: annullate con `git checkout -- app/` e passate al diario. Il refactoring si può rifare dopo.
+- Siete fermi da più di 5 minuti: scrivete in chat, il docente passa nella stanza.
+
 ### Sfida per chi finisce prima
 
 Nel repository ci sono **almeno 5 problemi lasciati di proposito**: sicurezza, privacy, regole di business che non tornano con la documentazione, bug. Quanti ne trovate con Claude Code? Per ognuno scrivete in `NOTE.md` il file, la riga e come lo avete verificato. Attenzione: vale solo se lo avete verificato voi, non se lo ha detto il modello.
+
+Se finite anche la sfida:
+
+1. scegliete uno dei problemi trovati, scrivete prima il test che lo dimostra (deve fallire), poi fate correggere il codice a Claude Code e fate passare il test;
+2. scrivete i test per tutti gli endpoint che non ne hanno, uno per il caso principale e uno per un errore.
 
 ---
 
@@ -89,9 +105,17 @@ Nel repository ci sono **almeno 5 problemi lasciati di proposito**: sicurezza, p
 - `/mcp` mostra il server collegato;
 - `CLAUDE.md` sta sotto le 40 righe e il comando di test che contiene funziona.
 
+### Se vi bloccate
+
+- Non avete né Node.js né `uv`: installate `uv` dentro l'ambiente virtuale con `pip install uv`, poi usate il comando del server Git.
+- Il server non risulta collegato in `/mcp` dopo 5 minuti di tentativi: saltate al passo 3 facendo le stesse domande senza server, poi confrontate con la demo del docente. Annotate in `NOTE.md` cosa cambia quando il server c'è.
+- `/init` produce un `CLAUDE.md` molto lungo: va bene, il lavoro vero è tagliarlo.
+
 ### Sfida per chi finisce prima
 
-Aggiungete a `CLAUDE.md` due regole nate dagli errori del lab 1.1 e verificate che Claude Code le rispetti.
+1. Aggiungete a `CLAUDE.md` due regole nate dagli errori del lab 1.1 e verificate che Claude Code le rispetti.
+2. Collegate anche il secondo server e fate una domanda che li usa tutti e due.
+3. Chiedete a Claude Code la differenza tra le risorse e gli strumenti dei server che avete collegato, e verificatela con `/mcp`.
 
 ---
 
@@ -107,4 +131,13 @@ Usate pure i 20 ticket di `data/tickets_esempio.json` per ragionare su casi conc
 
 **Fatto quando** ogni punto e ogni rischio ha una misura concreta, non un aggettivo.
 
-Fate commit e push sul vostro branch prima della chiusura.
+**Se finite prima.** Classificate a mano 5 ticket di `data/tickets_esempio.json` (categoria e priorità, guardando `docs/categorie.md` e `docs/processo-supporto.md`). Poi chiedete a Claude Code di classificare gli stessi 5 e confrontate con le etichette attese nel file. Dove sbagliate voi, e dove sbaglia il modello? È il punto di partenza della sessione 3.
+
+Prima della chiusura fate commit sul vostro branch:
+
+```bash
+git add -A
+git commit -m "Sessione 1: lab e mappa dei componenti"
+```
+
+Il lavoro resta sul vostro PC: la prossima volta ripartite da qui o dal tag `s2-start`.
