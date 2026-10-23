@@ -9,6 +9,7 @@ from fastapi import FastAPI, Header, HTTPException
 
 from app import config
 from app.db import get_conn, init_db
+from app.validazione import valida_descrizione, valida_email, valida_titolo
 from app.models import (
     CambioStato,
     Commento,
@@ -51,14 +52,9 @@ def _get_ticket_or_404(conn, ticket_id: int):
 def crea_ticket(payload: TicketCreate):
     log.info("Nuovo ticket ricevuto: %s", payload.model_dump())
 
-    if len(payload.titolo.strip()) < 5 or len(payload.titolo) > 120:
-        raise HTTPException(status_code=422, detail="Il titolo deve avere tra 5 e 120 caratteri")
-    if not payload.descrizione.strip():
-        raise HTTPException(status_code=422, detail="La descrizione non puo' essere vuota")
-    if len(payload.descrizione) > 5000:
-        raise HTTPException(status_code=422, detail="La descrizione supera i 5000 caratteri")
-    if "@" not in payload.email_richiedente:
-        raise HTTPException(status_code=422, detail="Email del richiedente non valida")
+    valida_titolo(payload.titolo)
+    valida_descrizione(payload.descrizione)
+    valida_email(payload.email_richiedente)
 
     now = _now()
     with get_conn() as conn:
@@ -94,7 +90,8 @@ def elenca_ticket(stato: Optional[Stato] = None, q: Optional[str] = None):
         query += " AND stato = ?"
         params.append(stato.value)
     if q:
-        query += f" AND (titolo LIKE '%{q}%' OR descrizione LIKE '%{q}%')"
+        query += " AND (titolo LIKE ? OR descrizione LIKE ?)"
+        params.extend([f"%{q}%", f"%{q}%"])
     query += " ORDER BY id DESC"
     with get_conn() as conn:
         rows = conn.execute(query, params).fetchall()
@@ -103,14 +100,8 @@ def elenca_ticket(stato: Optional[Stato] = None, q: Optional[str] = None):
 
 @app.patch("/tickets/{ticket_id}", response_model=Ticket)
 def aggiorna_ticket(ticket_id: int, payload: TicketUpdate):
-    if payload.titolo is not None:
-        if len(payload.titolo.strip()) < 5 or len(payload.titolo) > 120:
-            raise HTTPException(status_code=422, detail="Il titolo deve avere tra 5 e 120 caratteri")
-    if payload.descrizione is not None:
-        if not payload.descrizione.strip():
-            raise HTTPException(status_code=422, detail="La descrizione non puo' essere vuota")
-        if len(payload.descrizione) > 5000:
-            raise HTTPException(status_code=422, detail="La descrizione supera i 5000 caratteri")
+    valida_titolo(payload.titolo)
+    valida_descrizione(payload.descrizione)
 
     campi = {k: (v.value if hasattr(v, "value") else v) for k, v in payload.model_dump(exclude_none=True).items()}
     with get_conn() as conn:
@@ -147,6 +138,7 @@ def cambia_stato(ticket_id: int, payload: CambioStato):
 def aggiungi_commento(ticket_id: int, payload: CommentoCreate):
     now = _now()
     with get_conn() as conn:
+        _get_ticket_or_404(conn, ticket_id)
         cur = conn.execute(
             "INSERT INTO commenti (ticket_id, autore, testo, creato_il) VALUES (?, ?, ?, ?)",
             (ticket_id, payload.autore, payload.testo, now),
