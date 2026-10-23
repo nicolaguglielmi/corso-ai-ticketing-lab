@@ -7,7 +7,9 @@ Ognuno lavora comunque sul proprio clone del repository e alla fine consegna sul
 ## Prima di iniziare (5 minuti)
 
 ```bash
-git checkout -b <nome>/s1
+git clone https://github.com/nicolaguglielmi/corso-ai-ticketing-lab.git
+cd corso-ai-ticketing-lab
+git checkout -b <nome>/s1 s1-start
 python -m venv .venv && source .venv/bin/activate   # su Windows: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 pytest

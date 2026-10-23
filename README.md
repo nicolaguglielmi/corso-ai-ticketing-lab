@@ -8,6 +8,26 @@ Repository del corso "Design e integrazione di soluzioni IA-enabled". Contiene u
 - Git
 - Claude Code installato e autenticato
 
+## Scaricare il repository
+
+La prima volta:
+
+```bash
+git clone https://github.com/nicolaguglielmi/corso-ai-ticketing-lab.git
+cd corso-ai-ticketing-lab
+git checkout -b <nome>/s1 s1-start
+```
+
+Ogni lezione ha un punto di partenza (`s1-start`, `s2-start` e così via) che si aggiunge al repository prima dell'incontro. Il tag di una lezione contiene anche le soluzioni dei lab precedenti, così chi resta indietro riparte allineato:
+
+```bash
+git fetch --tags
+git checkout -b <nome>/s2 s2-start
+```
+
+Calendario, avvisi e materiali sono nell'agenda del corso:
+https://docs.google.com/document/d/1LLEUcFKwNrcOZavjMW7vbQtu0467KHFGSmE2YHINh3w/edit?usp=sharing
+
 ## Avvio
 
 ```bash
