@@ -49,11 +49,14 @@ uvicorn app.main:app --reload            # API su http://127.0.0.1:8000/docs
 app/        codice dell'API
 tests/      test automatici (pytest)
 docs/       processo di supporto, categorie, architettura, base di conoscenza (kb/),
-            template SDD (templates/), richieste del product owner (richieste/), specifiche (specs/)
-data/       ticket di esempio con categoria e priorità attese
+            template SDD (templates/), richieste del product owner (richieste/), specifiche (specs/),
+            materiali di riferimento (riferimento/), stime di costo e latenza
+data/       ticket di esempio, golden dataset di 40 ticket, risposte registrate del modello
+prompts/    prompt versionati
 scripts/    utilità
 LAB-S1.md   istruzioni dei lab della sessione 1
 LAB-S2.md   istruzioni dei lab della sessione 2
+LAB-S3.md   istruzioni dei lab della sessione 3
 CLAUDE.md   istruzioni di progetto per Claude Code
 NOTE.md     il tuo diario di lab
 ```
@@ -62,3 +65,4 @@ NOTE.md     il tuo diario di lab
 
 - Sessione 1: [LAB-S1.md](LAB-S1.md)
 - Sessione 2: [LAB-S2.md](LAB-S2.md), soluzioni della sessione 1 in [SOLUZIONI-S1.md](SOLUZIONI-S1.md)
+- Sessione 3: [LAB-S3.md](LAB-S3.md), skill SDD di riferimento in [docs/riferimento/](docs/riferimento/README.md)

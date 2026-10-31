@@ -13,7 +13,9 @@ API REST in Python (FastAPI + SQLite) per il ticketing del supporto interno. Rep
 
 - `app/main.py` endpoint, `app/models.py` modelli, `app/validazione.py` regole sugli input, `app/config.py` configurazione e transizioni di stato
 - `docs/` processo di supporto, categorie, base di conoscenza: sono la fonte delle regole di business
-- `docs/specs/<feature>/` specifiche prodotte con il flusso SDD
+- `docs/specs/<feature>/` specifiche prodotte con il flusso SDD, `docs/adr/` decisioni di architettura
+- `prompts/` prompt versionati come file (`<nome>_v1.md`, `<nome>_v2.md`)
+- `data/golden_dataset.json` 40 ticket etichettati per misurare la qualità
 
 ## Convenzioni
 
@@ -24,6 +26,7 @@ API REST in Python (FastAPI + SQLite) per il ticketing del supporto interno. Rep
 
 ## Cose da non fare
 
-- Non modificare `docs/` senza chiedere
+- Non modificare `docs/` senza chiedere, tranne `docs/specs/` e `docs/adr/` dove si scrivono specifiche e ADR
+- Non scrivere prompt come stringhe nel codice: vanno in `prompts/`
 - Non accettare modifiche senza aver fatto girare `pytest`
 - Non introdurre nuove dipendenze senza dirlo
