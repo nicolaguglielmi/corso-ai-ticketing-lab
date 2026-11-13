@@ -27,3 +27,18 @@ rispondo alle domande che mi avete mandato. Se vi serve altro chiedete al docent
 **Scadenza?** Fine mese era un desiderio. Mi va bene una prima versione che funziona con un servizio simulato, poi colleghiamo quello vero.
 
 Laura
+
+---
+
+## Seconda risposta, dopo le domande delle skill (06/11)
+
+Ciao,
+le vostre skill mi hanno fatto domande precise. Le decisioni valgono per tutti:
+
+1. **Soglia di confidenza**: 0,7 come punto di partenza. Va verificata sul golden dataset e la rivediamo con i numeri.
+2. **Servizio non disponibile, timeout, JSON non valido o categoria fuori elenco**: nessun nuovo tentativo in questa versione. Il ticket va subito nella coda manuale, come per la confidenza bassa, e l'esito si scrive nel log, senza il testo del ticket.
+3. **Sintesi e bozza di risposta** fanno parte di questa versione. La bozza la vede e la approva sempre l'operatore: niente invio automatico, e niente link nella bozza.
+4. **Dati sanitari**: non c'è una regola già definita. Per questa versione basta una lista di termini (invalidità, certificato medico, patologia, legge 104, malattia) più tutti i ticket sulle postazioni adattate. Email e numeri di telefono si mascherano sempre.
+5. **Come si misura**: categoria giusta in almeno 32 ticket su 40, e nessun P1 proposto come P3 o P4. I ticket finiti in coda manuale contano come non classificati correttamente. Per l'inglese niente soglia separata: c'è un solo ticket nel golden dataset, basta che sia classificato correttamente.
+
+Laura

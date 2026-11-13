@@ -14,6 +14,7 @@ API REST in Python (FastAPI + SQLite) per il ticketing del supporto interno. Rep
 - `app/main.py` endpoint, `app/models.py` modelli, `app/validazione.py` regole sugli input, `app/config.py` configurazione e transizioni di stato
 - `docs/` processo di supporto, categorie, base di conoscenza: sono la fonte delle regole di business
 - `docs/specs/<feature>/` specifiche prodotte con il flusso SDD, `docs/adr/` decisioni di architettura
+- `app/classificazione/` componente di classificazione: `provider.py` è il confine con il modello
 - `prompts/` prompt versionati come file (`<nome>_v1.md`, `<nome>_v2.md`)
 - `data/golden_dataset.json` 40 ticket etichettati per misurare la qualità
 

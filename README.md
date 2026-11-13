@@ -57,6 +57,7 @@ scripts/    utilità
 LAB-S1.md   istruzioni dei lab della sessione 1
 LAB-S2.md   istruzioni dei lab della sessione 2
 LAB-S3.md   istruzioni dei lab della sessione 3
+LAB-S4.md   istruzioni dei lab della sessione 4
 CLAUDE.md   istruzioni di progetto per Claude Code
 NOTE.md     il tuo diario di lab
 ```
@@ -66,3 +67,4 @@ NOTE.md     il tuo diario di lab
 - Sessione 1: [LAB-S1.md](LAB-S1.md)
 - Sessione 2: [LAB-S2.md](LAB-S2.md), soluzioni della sessione 1 in [SOLUZIONI-S1.md](SOLUZIONI-S1.md)
 - Sessione 3: [LAB-S3.md](LAB-S3.md), skill SDD di riferimento in [docs/riferimento/](docs/riferimento/README.md)
+- Sessione 4: [LAB-S4.md](LAB-S4.md), PRD di riferimento della classificazione in [docs/riferimento/specs/](docs/riferimento/specs/classificazione/prd.md)
